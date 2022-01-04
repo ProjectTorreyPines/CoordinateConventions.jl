@@ -376,7 +376,7 @@ function identify_cocos(B0, Ip, q::AbstractVector, psi::AbstractVector,
     end
 end
 
-export cocos
+export cocos, COCOS
 export cylindrical_cocos, cylindrical_cocos_indices, poloidal_cocos, poloidal_cocos_indices
 export check_cocos, transform_cocos, identify_cocos
 
