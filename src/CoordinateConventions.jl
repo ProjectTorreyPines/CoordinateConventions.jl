@@ -343,9 +343,12 @@ Arguments:
 * clockwise_phi::Bool - (optional) [True, False] if phi angle is defined clockwise or not. This is required to identify odd Vs even COCOS. Note that this cannot be determined from the output of a code.
 * a::AbstractVector - (optional) flux surfaces minor radius as function of psi. This is required to identify 2*pi term in psi definition
 """
-function identify_cocos(B0, Ip, q::AbstractVector, psi::AbstractVector,
+function identify_cocos(B0,
+                        Ip,
+                        q::Union{AbstractVector, AbstractRange},
+                        psi::Union{AbstractVector, AbstractRange},
                         clockwise_phi::Union{Bool,Nothing} = nothing,
-                        a::Union{AbstractVector,Nothing} = nothing)
+                        a::Union{AbstractVector,AbstractRange,Nothing} = nothing)
 
     sigma_B0 = sign(B0)
     sigma_Ip = sign(Ip)
