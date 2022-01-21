@@ -252,14 +252,14 @@ function transform_cocos(cc_in::COCOS, cc_out::COCOS;
     if sigma_B0 === nothing
         sigma_B0_eff = cc_in.sigma_RpZ * cc_out.sigma_RpZ
     else
-        sigma_B0_eff = sigma_B0[1]*sigma_B0[2]
+        sigma_B0_eff = sigma_B0[1] * sigma_B0[2]
     end
 
     sigma_Bp_eff = cc_in.sigma_Bp * cc_out.sigma_Bp
     exp_Bp_eff = cc_out.exp_Bp - cc_in.exp_Bp
     sigma_rhotp_eff = cc_in.sigma_rhotp * cc_out.sigma_rhotp
 
-    mu0 = 4*pi*1e-7
+    mu0 = 4 * pi * 1e-7
 
     transforms = Dict()
     transforms["R"]        = ld_eff
@@ -271,11 +271,14 @@ function transform_cocos(cc_in::COCOS, cc_out::COCOS;
     transforms["Φ"]        = transforms["TOR"]
     transforms["PPRIME"]   = (lB_eff/((ld_eff^2)*(mu0^exp_mu0_eff))) * sigma_Ip_eff * sigma_Bp_eff / ((2pi)^exp_Bp_eff)
     transforms["F_FPRIME"] = lB_eff * sigma_Ip_eff * sigma_Bp_eff / ((2pi)^exp_Bp_eff)
-    transforms["B"]        = lB_eff * sigma_B0_eff
+    transforms["BT"]       = lB_eff * sigma_B0_eff
+    transforms["B"]        = transforms["BT"]
     transforms["F"]        = sigma_B0_eff * ld_eff * lB_eff
     transforms["I"]        = sigma_Ip_eff * ld_eff * lB_eff / (mu0^exp_mu0_eff)
     transforms["J"]        = sigma_Ip_eff * lB_eff/((mu0^exp_mu0_eff)*ld_eff)
     transforms["Q"]        = sigma_Ip_eff * sigma_B0_eff * sigma_rhotp_eff
+    transforms["POL"]      = sigma_B0_eff * sigma_rhotp_eff
+    transforms["BP"]       = lB_eff * transforms["POL"]
 
     return transforms
 end
