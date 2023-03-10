@@ -297,7 +297,7 @@ Arguments:
 * sigma_Ip - (+1,-1) sign of toroidal plasma current
 * sigma_q  - (+1,-1) sign of the safety factor (q) within the plasma
 * sigma_dpsi -  +1 if psi is increasing, -1 if psi is decreasing
-* clockwise_phi::Bool - (optional) [True, False] if phi angle is defined clockwise or not. This is required to identify odd Vs even COCOS. Note that this cannot be determined from the output of a code.
+* clockwise_phi::Bool - (optional) [true, false] if phi angle is defined clockwise or not. This is required to identify odd Vs even COCOS. Note that this cannot be determined from the output of a code.
 """
 function identify_cocos(sigma_B0, sigma_Ip, sigma_q, sigma_dpsi,
                         clockwise_phi::Union{Bool,Nothing} = nothing)
@@ -343,7 +343,7 @@ Arguments:
 * Ip - plasma current (with sign)
 * q  -  safety factor profile (with sign) as function of psi
 * psi::AbstractVector -  Vector of poloidal fluxs from the magnetic axis to the plasma boundary
-* clockwise_phi::Bool - (optional) [True, False] if phi angle is defined clockwise or not. This is required to identify odd Vs even COCOS. Note that this cannot be determined from the output of a code.
+* clockwise_phi::Bool - (optional) [true, false] if phi angle is defined clockwise or not. This is required to identify odd Vs even COCOS. Note that this cannot be determined from the output of a code.
 * a::AbstractVector - (optional) flux surfaces minor radius as function of psi. This is required to identify 2*pi term in psi definition
 """
 function identify_cocos(B0,
