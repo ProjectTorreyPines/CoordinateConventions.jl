@@ -1,5 +1,3 @@
-__precompile__()
-
 module CoordinateConventions
 
 """
@@ -61,23 +59,23 @@ cocos(CC::COCOS) = CC
 
 function Base.show(io::IO, CC::COCOS)
     println(io, "COCOS = $(CC.cocos)")
-    println(io, " e_Bp  = $(CC.exp_Bp)")
-    println(io, " σ_Bp  = $(CC.sigma_Bp)")
+    println(io, " e_Bp [exp_Bp] = $(CC.exp_Bp)")
+    println(io, " σ_Bp [sigma_Bp] = $(CC.sigma_Bp)")
 
     rpz = Dict(1=>"(R,Φ,Z)", -1=>"(R,Z,Φ)")
     rpz_dir = Dict(1=>"CCW", -1=>"CW")
     rhotp = Dict(1=>"(ρ,θ,Φ)", -1=>"(ρ,Φ,θ)")
     rhotp_dir = Dict(1=>"CW", -1=>"CCW")
 
-    println(io, " σ_RΦZ = $(rpz[CC.sigma_RpZ]): $(CC.sigma_RpZ)")
-    println(io, " σ_ρθΦ = $(rhotp[CC.sigma_rhotp]): $(CC.sigma_rhotp)")
+    println(io, " σ_RΦZ [sigma_RpZ] = $(rpz[CC.sigma_RpZ]): $(CC.sigma_RpZ)")
+    println(io, " σ_ρθΦ [sigma_rhotp] = $(rhotp[CC.sigma_rhotp]): $(CC.sigma_rhotp)")
     println(io, " Φ from top: $(rpz_dir[CC.sigma_RpZ])")
     println(io, " θ from front: $(rhotp_dir[CC.sigma_RpZ*CC.sigma_rhotp])")
 
     inc = Dict(1=>"Increasing", -1=>"Decreasing")
-    println(io, " ψ_ref: $(inc[CC.sigma_Bp]) assuming +Ip, +B0")
-    println(io, " sign(q) = $(CC.sign_q_pos) assuming +Ip, +B0")
-    print(io, " sign(p') = $(CC.sign_pprime_pos) assuming +Ip, +B0")
+    println(io, " ψ_ref = $(inc[CC.sigma_Bp]) assuming +Ip, +B0")
+    println(io, " sign(q) [sign_q_pos] = $(CC.sign_q_pos) assuming +Ip, +B0")
+    print(io, " sign(p') [sign_pprime_pos] = $(CC.sign_pprime_pos) assuming +Ip, +B0")
 end
 
 Base.broadcastable(CC::COCOS) = (CC,)
