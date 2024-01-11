@@ -30,26 +30,26 @@ function cocos(cocos_in::Int)
 
     exp_Bp = cocos_in >= 11 ? 1 : 0
 
-    if cocos_in ∈ (1,11)
+    if cocos_in ∈ (1, 11)
         # ITER, Boozer are COCOS=11
-        return COCOS(cocos_in,exp_Bp,1,1,1,1,-1)
-    elseif cocos_in ∈ (2,12)
+        return COCOS(cocos_in, exp_Bp, 1, 1, 1, 1, -1)
+    elseif cocos_in ∈ (2, 12)
         # CHEASE, ONETWO, Hinton-Hazeltine, LION is COCOS=2
-        return COCOS(cocos_in,exp_Bp,1,-1,1,1,-1)
-    elseif cocos_in ∈ (3,13)
+        return COCOS(cocos_in, exp_Bp, 1, -1, 1, 1, -1)
+    elseif cocos_in ∈ (3, 13)
         # Freidberg, CAXE, KINX, EFIT are COCOS=3
         # EU-ITM up to end of 2011 is COCOS=13
-        return COCOS(cocos_in,exp_Bp,-1,1,-1,-1,1)
-    elseif cocos_in ∈ (4,14)
-        return COCOS(cocos_in,exp_Bp,-1,-1,-1,-1,1)
-    elseif cocos_in ∈ (5,15)
-        return COCOS(cocos_in,exp_Bp,1,1,-1,-1,-1)
-    elseif cocos_in ∈ (6,16)
-        return COCOS(cocos_in,exp_Bp,1,-1,-1,-1,-1)
-    elseif cocos_in ∈ (7,17)
-        return COCOS(cocos_in,exp_Bp,-1,1,1,1,1)
-    elseif cocos_in ∈ (8,18)
-        return COCOS(cocos_in,exp_Bp,-1,-1,1,1,1)
+        return COCOS(cocos_in, exp_Bp, -1, 1, -1, -1, 1)
+    elseif cocos_in ∈ (4, 14)
+        return COCOS(cocos_in, exp_Bp, -1, -1, -1, -1, 1)
+    elseif cocos_in ∈ (5, 15)
+        return COCOS(cocos_in, exp_Bp, 1, 1, -1, -1, -1)
+    elseif cocos_in ∈ (6, 16)
+        return COCOS(cocos_in, exp_Bp, 1, -1, -1, -1, -1)
+    elseif cocos_in ∈ (7, 17)
+        return COCOS(cocos_in, exp_Bp, -1, 1, 1, 1, 1)
+    elseif cocos_in ∈ (8, 18)
+        return COCOS(cocos_in, exp_Bp, -1, -1, 1, 1, 1)
     else
         throw(ArgumentError("COCOS = $cocos_in does not exist"))
     end
@@ -62,20 +62,20 @@ function Base.show(io::IO, CC::COCOS)
     println(io, " e_Bp [exp_Bp] = $(CC.exp_Bp)")
     println(io, " σ_Bp [sigma_Bp] = $(CC.sigma_Bp)")
 
-    rpz = Dict(1=>"(R,Φ,Z)", -1=>"(R,Z,Φ)")
-    rpz_dir = Dict(1=>"CCW", -1=>"CW")
-    rhotp = Dict(1=>"(ρ,θ,Φ)", -1=>"(ρ,Φ,θ)")
-    rhotp_dir = Dict(1=>"CW", -1=>"CCW")
+    rpz = Dict(1 => "(R,Φ,Z)", -1 => "(R,Z,Φ)")
+    rpz_dir = Dict(1 => "CCW", -1 => "CW")
+    rhotp = Dict(1 => "(ρ,θ,Φ)", -1 => "(ρ,Φ,θ)")
+    rhotp_dir = Dict(1 => "CW", -1 => "CCW")
 
     println(io, " σ_RΦZ [sigma_RpZ] = $(rpz[CC.sigma_RpZ]): $(CC.sigma_RpZ)")
     println(io, " σ_ρθΦ [sigma_rhotp] = $(rhotp[CC.sigma_rhotp]): $(CC.sigma_rhotp)")
     println(io, " Φ from top: $(rpz_dir[CC.sigma_RpZ])")
     println(io, " θ from front: $(rhotp_dir[CC.sigma_RpZ*CC.sigma_rhotp])")
 
-    inc = Dict(1=>"Increasing", -1=>"Decreasing")
+    inc = Dict(1 => "Increasing", -1 => "Decreasing")
     println(io, " ψ_ref = $(inc[CC.sigma_Bp]) assuming +Ip, +B0")
     println(io, " sign(q) [sign_q_pos] = $(CC.sign_q_pos) assuming +Ip, +B0")
-    print(io, " sign(p') [sign_pprime_pos] = $(CC.sign_pprime_pos) assuming +Ip, +B0")
+    return print(io, " sign(p') [sign_pprime_pos] = $(CC.sign_pprime_pos) assuming +Ip, +B0")
 end
 
 Base.broadcastable(CC::COCOS) = (CC,)
@@ -106,9 +106,9 @@ Returns the indices of the r, phi, and z coordinates, respectively, relative to 
 """
 function cylindrical_cocos_indices(c::COCOS)
     if c.sigma_RpZ == 1
-        return (1,2,3)
+        return (1, 2, 3)
     else
-        return (1,3,2)
+        return (1, 3, 2)
     end
 end
 
@@ -138,9 +138,9 @@ Returns the indices of the rho, theta, and phi coordinates, respectively, relati
 """
 function poloidal_cocos_indices(c::COCOS)
     if c.sigma_rhotp == 1
-        return (1,2,3)
+        return (1, 2, 3)
     else
-        return (1,3,2)
+        return (1, 3, 2)
     end
 end
 
@@ -150,38 +150,39 @@ end
 Returns if equilibrium quantities are consistent with given COCOS
 
 Arguments:
-* sigma_B0 - Toroidal magnetic field sign
-* sigma_Ip - Plasma current sign
-* sigma_F - Poloidal current sign
-* sigma_pprime - Pressure gradient sign
-* sigma_dpsi - dpsi/dr sign
-* cc::Union{Int,COCOS} - COCOS structure or ID
+
+  - sigma_B0 - Toroidal magnetic field sign
+  - sigma_Ip - Plasma current sign
+  - sigma_F - Poloidal current sign
+  - sigma_pprime - Pressure gradient sign
+  - sigma_dpsi - dpsi/dr sign
+  - cc::Union{Int,COCOS} - COCOS structure or ID
 """
 function check_cocos(sigma_B0, sigma_Ip, sigma_F, sigma_pprime,
-                     sigma_q, sigma_dpsi,
-                     cc::Union{Int,COCOS}; verbose=false)
+    sigma_q, sigma_dpsi,
+    cc::Union{Int,COCOS}; verbose=false)
 
     cc = cocos(cc)
 
     valid = true
-    if sigma_q*cc.sigma_rhotp*sigma_Ip*sigma_B0 < 0
+    if sigma_q * cc.sigma_rhotp * sigma_Ip * sigma_B0 < 0
         verbose && @warn "sigma_q($sigma_q) ≠ sigma_rhotp($(cc.sigma_rhotp))*sigma_Ip($sigma_Ip)*sigma_B0($sigma_B0)"
         valid = false
     end
 
-    if sigma_F*sigma_B0 < 0
+    if sigma_F * sigma_B0 < 0
         verbose && @warn "Signs of F and B0 are not consistent"
         valid = false
     end
 
-    if sigma_dpsi*cc.sigma_Bp*sigma_Ip < 0
+    if sigma_dpsi * cc.sigma_Bp * sigma_Ip < 0
         if sigma_dpsi > 0
             verbose && @warn "psi should be decreasing with sign(Ip) = $(sigma_Ip) for COCOS = $(cc.cocos)"
         else
             verbose && @warn "psi should be increasing with sign(Ip) = $(sigma_Ip) for COCOS = $(cc.cocos)"
         end
         valid = false
-    elseif sigma_pprime*sigma_Ip*cc.sigma_Bp > 0
+    elseif sigma_pprime * sigma_Ip * cc.sigma_Bp > 0
         verbose && @warn "sign(pprime) should be $(-sigma_Ip*cc.sigma_Bp)"
         valid = false
     end
@@ -195,16 +196,17 @@ end
 Returns if equilibrium quantities are consistent with given COCOS
 
 Arguments:
-* B0 - Toroidal magnetic field
-* Ip - Plasma current
-* F::AbstractVector - Poloidal current as a function of psi
-* pprime::AbstracVector - Pressure gradient w.r.t. psi as a function of psi
-* psi::AbstractVector - Poloidal flux
-* cc::Union{Int,COCOS} - COCOS structure or ID
+
+  - B0 - Toroidal magnetic field
+  - Ip - Plasma current
+  - F::AbstractVector - Poloidal current as a function of psi
+  - pprime::AbstracVector - Pressure gradient w.r.t. psi as a function of psi
+  - psi::AbstractVector - Poloidal flux
+  - cc::Union{Int,COCOS} - COCOS structure or ID
 """
 function check_cocos(B0, Ip, F::AbstractVector, pprime::AbstractVector,
-                     q::AbstractVector, psi::AbstractVector,
-                     cc::Union{Int,COCOS}; kwargs...)
+    q::AbstractVector, psi::AbstractVector,
+    cc::Union{Int,COCOS}; kwargs...)
 
     sigma_B0 = sign(B0)
     sigma_Ip = sign(Ip)
@@ -224,27 +226,28 @@ end
 Returns a dictionary of the multiplicative factors to transform COCOS from cc_in to cc_out
 
 Arguments:
-* sigma_Ip::Union{NTuple{2,Int},Nothing} - A tuple of the (Input, Output) current sign or nothing
-* sigma_B0::Union{NTuple{2,Int},Nothing} - A tuple of the (Input, Output) toroidal field sign or nothing
-* ld::NTuple{2,<:Real} - A tuple of the (Input, Output) length scale factor. Default = (1,1)
-* lB::NTuple{2,<:Real} - A tuple of the (Input, Output) magnetic field scale factor. Default = (1,1)
-* exp_mu0::NTuple{2,<:Real} - A tuple of the (Input, Output) mu0 exponent (0, 1). Default = (0,0)
+
+  - sigma_Ip::Union{NTuple{2,Int},Nothing} - A tuple of the (Input, Output) current sign or nothing
+  - sigma_B0::Union{NTuple{2,Int},Nothing} - A tuple of the (Input, Output) toroidal field sign or nothing
+  - ld::NTuple{2,<:Real} - A tuple of the (Input, Output) length scale factor. Default = (1,1)
+  - lB::NTuple{2,<:Real} - A tuple of the (Input, Output) magnetic field scale factor. Default = (1,1)
+  - exp_mu0::NTuple{2,<:Real} - A tuple of the (Input, Output) mu0 exponent (0, 1). Default = (0,0)
 """
 function transform_cocos(cc_in::COCOS, cc_out::COCOS;
-                         sigma_Ip::Union{NTuple{2,Int},Nothing} = nothing,
-                         sigma_B0::Union{NTuple{2,Int},Nothing} = nothing,
-                         ld::NTuple{2,<:Real} = (1,1),
-                         lB::NTuple{2,<:Real} = (1,1),
-                         exp_mu0::NTuple{2,<:Real} = (0,0))
+    sigma_Ip::Union{NTuple{2,Int},Nothing}=nothing,
+    sigma_B0::Union{NTuple{2,Int},Nothing}=nothing,
+    ld::NTuple{2,<:Real}=(1, 1),
+    lB::NTuple{2,<:Real}=(1, 1),
+    exp_mu0::NTuple{2,<:Real}=(0, 0))
 
-    ld_eff = ld[2]/ld[1]
-    lB_eff = lB[2]/lB[1]
+    ld_eff = ld[2] / ld[1]
+    lB_eff = lB[2] / lB[1]
     exp_mu0_eff = exp_mu0[2] - exp_mu0[1]
 
     if sigma_Ip === nothing
         sigma_Ip_eff = cc_in.sigma_RpZ * cc_out.sigma_RpZ
     else
-        sigma_Ip_eff = sigma_Ip[1]*sigma_Ip[2]
+        sigma_Ip_eff = sigma_Ip[1] * sigma_Ip[2]
     end
 
     if sigma_B0 === nothing
@@ -260,29 +263,29 @@ function transform_cocos(cc_in::COCOS, cc_out::COCOS;
     mu0 = 4 * pi * 1e-7
 
     transforms = Dict()
-    transforms["R"]        = ld_eff
-    transforms["Z"]        = ld_eff
-    transforms["P"]        = (lB_eff^2)/(mu0^exp_mu0_eff)
-    transforms["PSI"]      = lB_eff * ld_eff^2 * sigma_Ip_eff * sigma_Bp_eff * ((2pi)^exp_Bp_eff) * ld_eff^2 * lB_eff
-    transforms["ψ"]        = transforms["PSI"]
-    transforms["TOR"]      = lB_eff * ld_eff^2 * sigma_B0_eff
-    transforms["Φ"]        = transforms["TOR"]
-    transforms["PPRIME"]   = (lB_eff/((ld_eff^2)*(mu0^exp_mu0_eff))) * sigma_Ip_eff * sigma_Bp_eff / ((2pi)^exp_Bp_eff)
+    transforms["R"] = ld_eff
+    transforms["Z"] = ld_eff
+    transforms["P"] = (lB_eff^2) / (mu0^exp_mu0_eff)
+    transforms["PSI"] = lB_eff * ld_eff^2 * sigma_Ip_eff * sigma_Bp_eff * ((2pi)^exp_Bp_eff) * ld_eff^2 * lB_eff
+    transforms["ψ"] = transforms["PSI"]
+    transforms["TOR"] = lB_eff * ld_eff^2 * sigma_B0_eff
+    transforms["Φ"] = transforms["TOR"]
+    transforms["PPRIME"] = (lB_eff / ((ld_eff^2) * (mu0^exp_mu0_eff))) * sigma_Ip_eff * sigma_Bp_eff / ((2pi)^exp_Bp_eff)
     transforms["F_FPRIME"] = lB_eff * sigma_Ip_eff * sigma_Bp_eff / ((2pi)^exp_Bp_eff)
-    transforms["BT"]       = lB_eff * sigma_B0_eff
-    transforms["B"]        = transforms["BT"]
-    transforms["F"]        = sigma_B0_eff * ld_eff * lB_eff
-    transforms["I"]        = sigma_Ip_eff * ld_eff * lB_eff / (mu0^exp_mu0_eff)
-    transforms["J"]        = sigma_Ip_eff * lB_eff/((mu0^exp_mu0_eff)*ld_eff)
-    transforms["Q"]        = sigma_Ip_eff * sigma_B0_eff * sigma_rhotp_eff
-    transforms["POL"]      = sigma_B0_eff * sigma_rhotp_eff
-    transforms["BP"]       = lB_eff * transforms["POL"]
+    transforms["BT"] = lB_eff * sigma_B0_eff
+    transforms["B"] = transforms["BT"]
+    transforms["F"] = sigma_B0_eff * ld_eff * lB_eff
+    transforms["I"] = sigma_Ip_eff * ld_eff * lB_eff / (mu0^exp_mu0_eff)
+    transforms["J"] = sigma_Ip_eff * lB_eff / ((mu0^exp_mu0_eff) * ld_eff)
+    transforms["Q"] = sigma_Ip_eff * sigma_B0_eff * sigma_rhotp_eff
+    transforms["POL"] = sigma_B0_eff * sigma_rhotp_eff
+    transforms["BP"] = lB_eff * transforms["POL"]
 
     return transforms
 end
 
 function transform_cocos(cc_in::Union{Int,COCOS}, cc_out::Union{Int,COCOS}; kwargs...)
-    transform_cocos(cocos(cc_in), cocos(cc_out); kwargs...)
+    return transform_cocos(cocos(cc_in), cocos(cc_out); kwargs...)
 end
 
 """
@@ -291,14 +294,15 @@ end
 Utility function to identify COCOS coordinate system. If multiple COCOS are possible, then all are returned.
 
 Arguments:
-* sigma_B0 - (+1,-1) sign of the toroidal magnetic field
-* sigma_Ip - (+1,-1) sign of toroidal plasma current
-* sigma_q  - (+1,-1) sign of the safety factor (q) within the plasma
-* sigma_dpsi -  +1 if psi is increasing, -1 if psi is decreasing
-* clockwise_phi::Bool - (optional) [true, false] if phi angle is defined clockwise or not. This is required to identify odd Vs even COCOS. Note that this cannot be determined from the output of a code.
+
+  - sigma_B0 - (+1,-1) sign of the toroidal magnetic field
+  - sigma_Ip - (+1,-1) sign of toroidal plasma current
+  - sigma_q  - (+1,-1) sign of the safety factor (q) within the plasma
+  - sigma_dpsi -  +1 if psi is increasing, -1 if psi is decreasing
+  - clockwise_phi::Bool - (optional) [true, false] if phi angle is defined clockwise or not. This is required to identify odd Vs even COCOS. Note that this cannot be determined from the output of a code.
 """
 function identify_cocos(sigma_B0, sigma_Ip, sigma_q, sigma_dpsi,
-                        clockwise_phi::Union{Bool,Nothing} = nothing)
+    clockwise_phi::Union{Bool,Nothing}=nothing)
 
     if clockwise_phi === nothing
         sigma_rpz = clockwise_phi
@@ -310,8 +314,8 @@ function identify_cocos(sigma_B0, sigma_Ip, sigma_q, sigma_dpsi,
 
     # return both even and odd COCOS if clockwise_phi is not provided
     if sigma_rpz === nothing
-        tmp  = identify_cocos(sigma_B0, sigma_Ip, sigma_q, sigma_dpsi, true)
-        tmp2  = identify_cocos(sigma_B0, sigma_Ip, sigma_q, sigma_dpsi, false)
+        tmp = identify_cocos(sigma_B0, sigma_Ip, sigma_q, sigma_dpsi, true)
+        tmp2 = identify_cocos(sigma_B0, sigma_Ip, sigma_q, sigma_dpsi, false)
         return (tmp..., tmp2...)
     end
 
@@ -337,24 +341,25 @@ end
 Utility function to identify COCOS coordinate system. If multiple COCOS are possible, then all are returned.
 
 Arguments:
-* B0 - toroidal magnetic field (with sign)
-* Ip - plasma current (with sign)
-* q  -  safety factor profile (with sign) as function of psi
-* psi::AbstractVector -  Vector of poloidal fluxs from the magnetic axis to the plasma boundary
-* clockwise_phi::Bool - (optional) [true, false] if phi angle is defined clockwise or not. This is required to identify odd Vs even COCOS. Note that this cannot be determined from the output of a code.
-* a::AbstractVector - (optional) flux surfaces minor radius as function of psi. This is required to identify 2*pi term in psi definition
+
+  - B0 - toroidal magnetic field (with sign)
+  - Ip - plasma current (with sign)
+  - q  -  safety factor profile (with sign) as function of psi
+  - psi::AbstractVector -  Vector of poloidal fluxs from the magnetic axis to the plasma boundary
+  - clockwise_phi::Bool - (optional) [true, false] if phi angle is defined clockwise or not. This is required to identify odd Vs even COCOS. Note that this cannot be determined from the output of a code.
+  - a::AbstractVector - (optional) flux surfaces minor radius as function of psi. This is required to identify 2*pi term in psi definition
 """
 function identify_cocos(B0,
-                        Ip,
-                        q::Union{AbstractVector, AbstractRange},
-                        psi::Union{AbstractVector, AbstractRange},
-                        clockwise_phi::Union{Bool,Nothing} = nothing,
-                        a::Union{AbstractVector,AbstractRange,Nothing} = nothing)
+    Ip,
+    q::Union{AbstractVector,AbstractRange},
+    psi::Union{AbstractVector,AbstractRange},
+    clockwise_phi::Union{Bool,Nothing}=nothing,
+    a::Union{AbstractVector,AbstractRange,Nothing}=nothing)
 
     sigma_B0 = sign(B0)
     sigma_Ip = sign(Ip)
     sigma_q = sign(q[1])
-    sigma_dpsi = sign(psi[2]-psi[1])
+    sigma_dpsi = sign(psi[2] - psi[1])
 
     ccs = identify_cocos(sigma_B0, sigma_Ip, sigma_q, sigma_dpsi, clockwise_phi)
 
@@ -365,7 +370,7 @@ function identify_cocos(B0,
             index += 1
         end
 
-        q_estimate = abs.((pi * B0 * (a .- a[1]).^2) / (psi .- psi[1]))
+        q_estimate = abs.((pi * B0 * (a .- a[1]) .^ 2) / (psi .- psi[1]))
 
         if abs(q_estimate[index] - q[index]) < abs(q_estimate[index] / (2 * pi) - q[index])
             eBp = 1
@@ -373,7 +378,7 @@ function identify_cocos(B0,
             eBp = 0
         end
 
-        return filter(x -> x > 10*eBp, ccs)
+        return filter(x -> x > 10 * eBp, ccs)
     else
         # return COCOS<10 as well as COCOS>10 if a is not provided
         return ccs
