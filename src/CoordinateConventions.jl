@@ -390,6 +390,6 @@ export cylindrical_cocos, cylindrical_cocos_indices, poloidal_cocos, poloidal_co
 export check_cocos, transform_cocos, identify_cocos
 
 const document = Dict()
-document[:CoordinateConventions] = [name for name in Base.names(@__MODULE__, all=false, imported=false) if name != Symbol(@__MODULE__)]
+document[Symbol(@__MODULE__)] = [name for name in Base.names(@__MODULE__, all=false, imported=false) if name != Symbol(@__MODULE__)]
 
 end
