@@ -4,3 +4,6 @@ authors = ["Orso Meneghini <orso82@gmail.com>"]
 version = "1.0.1"
 
 [deps]
+
+[compat]
+julia = "1"
