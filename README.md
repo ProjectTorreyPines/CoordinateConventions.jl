@@ -1,6 +1,8 @@
 # CoordinateConventions.jl
 
-Standalone Julia package implementing COCOS transformation based on [Equilibrium.jl](https://github.com/JuliaFusion/Equilibrium.jl) which was based on [OMAS](https://github.com/gafusion/omas/blob/d6071e630247321be8fe27889c600a322c870130/omas/omas_physics.py#L2511-L2744)
+Standalone Julia package implementing [COCOS - Coordinate Conventions](https://crppwww.epfl.ch/~sauter/cocos/) transformation commonly used in fusion research.
+
+Paper: [O. Sauter and S. Y Medvedev, "Tokamak Coordinate Conventions: COCOS", Comput. Phys. Commun. 184 (2013) 293](https://crppwww.epfl.ch/~sauter/cocos/Sauter_COCOS_Tokamak_Coordinate_Conventions.pdf)
 
 ## Online documentation
 For more details, see the [online documentation](https://projecttorreypines.github.io/CoordinateConventions.jl/dev).
