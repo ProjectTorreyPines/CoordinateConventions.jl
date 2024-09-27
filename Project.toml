@@ -1,7 +1,7 @@
 name = "CoordinateConventions"
 uuid = "7204ce3a-f536-43d2-be4a-fbed74e90d86"
 authors = ["Orso Meneghini <orso82@gmail.com>"]
-version = "1.0.2"
+version = "1.0.3"
 
 [deps]
 
