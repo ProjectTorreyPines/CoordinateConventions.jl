@@ -21,35 +21,62 @@ struct COCOS
     sign_pprime_pos::Int # +1 or -1, depending if dp/dpsi is positive or negative with Ip and B0 positive
 end
 
+const cocos1 = COCOS(1, 0, 1, 1, 1, 1, -1)
+const cocos2 = COCOS(2, 0, 1, -1, 1, 1, -1)
+const cocos3 = COCOS(3, 0, -1, 1, -1, -1, 1)
+const cocos4 = COCOS(4, 0, -1, -1, -1, -1, 1)
+const cocos5 = COCOS(5, 0, 1, 1, -1, -1, -1)
+const cocos6 = COCOS(6, 0, 1, -1, -1, -1, -1)
+const cocos7 = COCOS(7, 0, -1, 1, 1, 1, 1)
+const cocos8 = COCOS(8, 0, -1, -1, 1, 1, 1)
+
+const cocos11 = COCOS(11, 1, 1, 1, 1, 1, -1)
+const cocos12 = COCOS(12, 1, 1, -1, 1, 1, -1)
+const cocos13 = COCOS(13, 1, -1, 1, -1, -1, 1)
+const cocos14 = COCOS(14, 1, -1, -1, -1, -1, 1)
+const cocos15 = COCOS(15, 1, 1, 1, -1, -1, -1)
+const cocos16 = COCOS(16, 1, 1, -1, -1, -1, -1)
+const cocos17 = COCOS(17, 1, -1, 1, 1, 1, 1)
+const cocos18 = COCOS(18, 1, -1, -1, 1, 1, 1)
+
 """
     cocos(cocos_ID) -> COCOS
 
 Returns COCOS structure given the cocos_ID number
 """
 function cocos(cocos_in::Int)
-
-    exp_Bp = cocos_in >= 11 ? 1 : 0
-
-    if cocos_in ∈ (1, 11)
-        # ITER, Boozer are COCOS=11
-        return COCOS(cocos_in, exp_Bp, 1, 1, 1, 1, -1)
-    elseif cocos_in ∈ (2, 12)
-        # CHEASE, ONETWO, Hinton-Hazeltine, LION is COCOS=2
-        return COCOS(cocos_in, exp_Bp, 1, -1, 1, 1, -1)
-    elseif cocos_in ∈ (3, 13)
-        # Freidberg, CAXE, KINX, EFIT are COCOS=3
-        # EU-ITM up to end of 2011 is COCOS=13
-        return COCOS(cocos_in, exp_Bp, -1, 1, -1, -1, 1)
-    elseif cocos_in ∈ (4, 14)
-        return COCOS(cocos_in, exp_Bp, -1, -1, -1, -1, 1)
-    elseif cocos_in ∈ (5, 15)
-        return COCOS(cocos_in, exp_Bp, 1, 1, -1, -1, -1)
-    elseif cocos_in ∈ (6, 16)
-        return COCOS(cocos_in, exp_Bp, 1, -1, -1, -1, -1)
-    elseif cocos_in ∈ (7, 17)
-        return COCOS(cocos_in, exp_Bp, -1, 1, 1, 1, 1)
-    elseif cocos_in ∈ (8, 18)
-        return COCOS(cocos_in, exp_Bp, -1, -1, 1, 1, 1)
+    if cocos_in == 1
+        return cocos1
+    elseif cocos_in == 2
+        return cocos2
+    elseif cocos_in == 3
+        return cocos3
+    elseif cocos_in == 4
+        return cocos4
+    elseif cocos_in == 5
+        return cocos5
+    elseif cocos_in == 6
+        return cocos6
+    elseif cocos_in == 7
+        return cocos7
+    elseif cocos_in == 8
+        return cocos8
+    elseif cocos_in == 11
+        return cocos11
+    elseif cocos_in == 12
+        return cocos12
+    elseif cocos_in == 13
+        return cocos13
+    elseif cocos_in == 14
+        return cocos14
+    elseif cocos_in == 15
+        return cocos15
+    elseif cocos_in == 16
+        return cocos16
+    elseif cocos_in == 17
+        return cocos17
+    elseif cocos_in == 18
+        return cocos18
     else
         throw(ArgumentError("COCOS = $cocos_in does not exist"))
     end
@@ -262,7 +289,7 @@ function transform_cocos(cc_in::COCOS, cc_out::COCOS;
 
     mu0 = 4 * pi * 1e-7
 
-    transforms = Dict()
+    transforms = Dict{String,Float64}()
     transforms["R"] = ld_eff
     transforms["Z"] = ld_eff
     transforms["P"] = (lB_eff^2) / (mu0^exp_mu0_eff)
@@ -390,6 +417,6 @@ export cylindrical_cocos, cylindrical_cocos_indices, poloidal_cocos, poloidal_co
 export check_cocos, transform_cocos, identify_cocos
 
 const document = Dict()
-document[Symbol(@__MODULE__)] = [name for name in Base.names(@__MODULE__, all=false, imported=false) if name != Symbol(@__MODULE__)]
+document[Symbol(@__MODULE__)] = [name for name in Base.names(@__MODULE__; all=false, imported=false) if name != Symbol(@__MODULE__)]
 
 end
