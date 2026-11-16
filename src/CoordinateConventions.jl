@@ -293,7 +293,7 @@ function transform_cocos(cc_in::COCOS, cc_out::COCOS;
     transforms["R"] = ld_eff
     transforms["Z"] = ld_eff
     transforms["P"] = (lB_eff^2) / (mu0^exp_mu0_eff)
-    transforms["PSI"] = lB_eff * ld_eff^2 * sigma_Ip_eff * sigma_Bp_eff * ((2pi)^exp_Bp_eff) * ld_eff^2 * lB_eff
+    transforms["PSI"] = lB_eff * ld_eff^2 * sigma_Ip_eff * sigma_Bp_eff * ((2pi)^exp_Bp_eff)
     transforms["ψ"] = transforms["PSI"]
     transforms["TOR"] = lB_eff * ld_eff^2 * sigma_B0_eff
     transforms["Φ"] = transforms["TOR"]
